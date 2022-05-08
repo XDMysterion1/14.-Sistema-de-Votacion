@@ -1,25 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter,Routes, Route} from "react-router-dom";
+import { Home }           from './page/Home/Home';
+import { About }          from './page/About/About';
+import { NotFoundPage }   from './page/NoFoundPage/NotFoundPage';
+
+import {Login}            from './page/Login/Login';
+import {Register}         from './page/Register/Register';
+
+import {NavBar}           from './components/NavBar/NavBar';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        
+        main: '#3f51b5',
+   
+      },
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+ 
+      <BrowserRouter>
+          <NavBar/>
+        <Routes>
+          <Route path="/"          element={<Home />}         />
+          <Route path="/About"     element={<About />}        />
+          <Route path="*"          element={<NotFoundPage />} />
+          <Route path="/Login"     element={<Login />}        />
+          <Route path="/Register"  element={<Register />}     />
+
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+
   );
 }
 
